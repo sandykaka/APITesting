@@ -1,9 +1,11 @@
 # APITesting
 
 ###### This repo includes API testing architecture. This is using following technologies:
-1. Behave
+1. Behave   (BDD framework for python)
 2. Python
-3. Requests
+3. Requests (lib for making api calls)
+4. json
+5. pymongo (for db connection)
 
 ## How to setup the Project:
 1. Clone the repo
