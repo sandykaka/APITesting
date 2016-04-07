@@ -1,0 +1,235 @@
+{
+	"application": {
+		"applicant": [{
+			"prettyPrint": "The Magic Co.\nA house, 23, 3F1, West Bromlinton St., Edinburgh, INVERURIE, UK, EH56 0QY, Lothian",
+			"type": {
+				"code": "non_natural_uk"
+			},
+			"name": {
+				"prefix": {
+					"code": "the",
+					"prettyPrint": "The"
+				},
+				"company": "Magic Co.",
+				"prettyPrint": "The Magic Co."
+			},
+			"reference": {
+				"allocatedNumber": "97823475634"
+			},
+			"address": {
+				"name": "A house",
+				"prettyPrint": "A house, 23, 3F1, West Bromlinton St., Edinburgh, INVERURIE, UK, EH56 0QY, Lothian",
+				"postcode": "EH56 0QY"
+			}
+		}],
+		"processingInstructions": {
+			"notification": {
+				"email": [
+					"example@example.com",
+					"example2@example.com"
+				]
+			},
+			"payment": {
+				"fasNumber": "1145",
+				"fee": {
+					"amount": 30,
+					"basis": {
+						"consideration": {
+							"nonMonetary": {
+								"code": "love_etc"
+							},
+							"monetary": 50000,
+							"details": "Human description here"
+						},
+						"annualRent": 1200,
+						"monetaryValue": 250000
+					}
+				},
+				"method": {
+					"code": "dd"
+				}
+			}
+		},
+		"declarations": {
+			"sharedPlots": {
+				"titleNumber": [
+					"TST123",
+					"TST124"
+				],
+				"isApplicable": false,
+				"isRegistered": false
+			},
+			"extensionOfWarranty": {
+				"isApplicable": true,
+				"legalSubsection": "11.5 subsection b"
+			},
+			"burdens": {
+				"isApplicable": true
+			},
+			"plans": {
+				"reportNumber": "298745667",
+				"cadastralUnitNumber": "A string field",
+				"isOnCadastralMap": false,
+				"advanceNoticeNumber": "16TST00001",
+				"isInDeed": true
+			},
+			"certification": {
+				"isSatisfactory": false,
+				"isUnregisteredPlot": true,
+				"isComplete": false
+			},
+			"additionalInformation": {
+				"isApplicable": false,
+				"details": "Some extra things I couldn't include in the form"
+			},
+			"registerOfInhibitionsSearch": {
+				"date": {
+					"searched": "1999-01-01"
+				},
+				"isRelevant": false,
+				"isApplicable": false,
+				"details": "We found something relevant on page 34",
+				"isPerformed": true
+			},
+			"servitudes": {
+				"isApplicable": false,
+				"type": {
+					"code": "in_a_deed",
+					"prettyPrint": "In a deed"
+				}
+			},
+			"restrictionOrLimitation": {
+				"isApplicable": true,
+				"details": "There is a restriction on the proprietor",
+				"isGranterTheProprietor": false
+			},
+			"landTax": {
+				"isSatisfactory": false,
+				"isApplicable": true
+			},
+			"landUse": {
+				"type": {
+					"code": "ag",
+					"prettyPrint": "Agriculture"
+				}
+			},
+			"securitiesSearch": {
+				"date": {
+					"searched": "1999-01-01"
+				},
+				"isRelevant": false,
+				"isPerformed": false
+			}
+		},
+		"agent": {
+			"name": {
+				"prefix": {
+					"code": "mrs",
+					"prettyPrint": "Mrs"
+				},
+				"last": "Smith",
+				"prettyPrint": "Mrs Jane Smith",
+				"first": "Jane"
+			},
+			"prettyPrint": "Mrs Jane Smith\nThe Solicitor Co.\nA house, 23, 3F1, West Bromlinton St., Edinburgh, INVERURIE, UK, EH56 0QY, Lothian",
+			"company": {
+				"type": {
+					"code": "non_natural"
+				},
+				"name": {
+					"prefix": {
+						"code": "the",
+						"prettyPrint": "The"
+					},
+					"company": "Solicitor Co.",
+					"prettyPrint": "The Solicitor Co."
+				}
+			},
+			"contact": {
+				"emailAddress": "bobb@bobo.bob",
+				"phoneNumber": "0123 123 1111"
+			},
+			"address": {
+				"name": "A house",
+				"prettyPrint": "A house, 23, 3F1, West Bromlinton St., Edinburgh, INVERURIE, UK, EH56 0QY, Lothian",
+				"postcode": "EH56 0QY"
+			},
+			"type": {
+				"code": "natural"
+			}
+		},
+		"deed": {
+			"granter": [{
+				"prettyPrint": "The Magic Co.\nA house, 23, 3F1, West Bromlinton St., Edinburgh, INVERURIE, UK, EH56 0QY, Lothian",
+				"type": {
+					"code": "non_natural_uk"
+				},
+				"name": {
+					"prefix": {
+						"code": "the",
+						"prettyPrint": "The"
+					},
+					"company": "Magic Co.",
+					"prettyPrint": "The Magic Co."
+				},
+				"reference": {
+					"allocatedNumber": "97823475634"
+				},
+				"address": {
+					"name": "A house",
+					"prettyPrint": "A house, 23, 3F1, West Bromlinton St., Edinburgh, INVERURIE, UK, EH56 0QY, Lothian",
+					"postcode": "EH56 0QY"
+				}
+			}],
+			"type": {
+				"code": "",
+				"prettyPrint": ""
+			},
+			"subject": [{
+				"date": {
+					"entry": "2000-12-01T12:12:00.0000"
+				},
+				"details": "A bit of land next to the bog",
+				"reference": {
+					"titleNumber": "FFE123",
+					"searchSheetNumber": "123",
+					"dpaNumber": "1234"
+				},
+				"address": {
+					"name": "",
+					"reference": {
+						"apr": "APJP9H855V2422T0EM",
+						"uprn": "..."
+					},
+					"locality": "",
+					"subBuilding": "",
+					"number": "117",
+					"postTown": "ABERDEEN",
+					"street": "BRIGHTON PLACE",
+					"postcode": "AB106RT",
+					"prettyPrint": "117 BRIGHTON PLACE, ABERDEEN, AB106RT"
+				}
+			}]
+		},
+		"supportingDeed": [{
+			"date": {
+				"recording": "2000-12-01"
+			},
+			"has": {
+				"security": false,
+				"servitude": true,
+				"plan": false,
+				"burden": false
+			},
+			"type": {
+				"code": "38",
+				"prettyPrint": "SDLT certificate"
+			},
+			"details": "I'm a deed",
+			"isAttached": true
+		}],
+		"type": {
+			"code": "fr"
+		}
+	}
+}
