@@ -34,8 +34,8 @@
 └── requirements.txt
 ```
 ### Brief Information:
-##### libs => liberary like connection to db, request to make to api and logging liberary
-##### ira => core methods to make api call related to application
-##### features => feature files
-##### features/steps => All the bindings for feature files
-##### data => json data
+1. libs => liberary like connection to db, request to make to api and logging liberary
+2. ira => core methods to make api call related to application
+3. features => feature files
+4. features/steps => All the bindings for feature files
+5. data => json data
