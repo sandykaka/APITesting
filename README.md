@@ -12,6 +12,7 @@
 3. -> Run command => pip install requirments.txt
 
 ## Project Structure:
+```
 .
 ├── README.md
 ├── data
@@ -31,7 +32,7 @@
 │   ├── __init__.py
 │   └── ira_app.py
 └── requirements.txt
-
+```
 ### Brief Information:
 ##### libs => liberary like connection to db, request to make to api and logging liberary
 ##### ira => core methods to make api call related to application
