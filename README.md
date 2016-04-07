@@ -8,7 +8,7 @@
 ## How to setup the Project:
 1. Clone the repo
 2. Go ot APITesting
-3. Run command => pip install requirments.txt
+3. Run command => ```pip install requirments.txt```
 
 ## Project Structure:
 ```
