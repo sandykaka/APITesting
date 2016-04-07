@@ -1,7 +1,6 @@
 # APITesting
 
-##### This repo includes API testing architecture:
-##### It include following technologies:
+###### This repo includes API testing architecture. This is using following technologies:
 1. Behave
 2. Python
 3. Requests
