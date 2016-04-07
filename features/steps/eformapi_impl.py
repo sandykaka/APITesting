@@ -2,6 +2,7 @@ from behave import *
 from behave import Given
 from behave import Then
 from behave import When
+from lra import lra_app
 
 use_step_matcher("re")
 
@@ -28,10 +29,10 @@ def step_impl(context):
 @When("I send an application API to RoS eForms to create/update a <application type> application")
 def step_impl(context):
     """
+    This will send the application request to api
     :type context: behave.runner.Context
     """
-
-    pass
+    context = lra_app.create_application()
 
 
 @Then("the application is successfully received by RoS eForms")
