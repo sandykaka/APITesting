@@ -1,15 +1,15 @@
 # APITesting
 
-## This repo includes API testing architecture:
-#### It include following technologies:
+##### This repo includes API testing architecture:
+##### It include following technologies:
 1. Behave
 2. Python
 3. Requests
 
 ## How to setup the Project:
-1. -> Clone the repo
-2. -> Go ot APITesting
-3. -> Run command => pip install requirments.txt
+1. Clone the repo
+2. Go ot APITesting
+3. Run command => pip install requirments.txt
 
 ## Project Structure:
 ```
