@@ -32,8 +32,8 @@ def step_impl(context):
     :param context:
     :return:
     """
-    token_response = lra_app.get_token()
-    refresh_response = lra_app.refresh_token()
+    lra_app.get_token()
+    # lra_app.refresh_token()
 
 @When("I send an application API to RoS eForms to create/update a <application type> application")
 def step_impl(context):

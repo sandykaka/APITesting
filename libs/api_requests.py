@@ -10,7 +10,7 @@ def api_get(call):
     This function executes GET call for API
     """
     max_tries = 2
-
+    rs = None
     for retry in xrange(max_tries):
         try:
             rs = requests.get(call)
@@ -26,7 +26,7 @@ def api_get(call):
                 else Logger.logr.error("Request failed")
             time.sleep(1)
 
-    return None
+    return rs
 
 
 def api_post(call, payload):
@@ -39,16 +39,14 @@ def api_post(call, payload):
     "item": "14856071", "quantity": 1}], \
     "userId": 24279715}
     """
-    headers = {'content-type': 'application/json'}
-    rs = ''
+    headers = {'Content-Type': 'application/json'}
+    rs = None
+    payload = json.dumps(payload) if type(payload) == dict else payload
     try:
         rs = requests.post(call, data = payload, headers = headers)
-        rs = [rs,json.loads(rs.text),call]
-        Logger.logr.debug('~')
         Logger.logr.debug(call)
-
-        if rs[0].status_code in [500,404]:
-            Logger.logr.error("request get failed")
+        if rs.status_code in [500,404]:
+            Logger.logr.error(">>>>>>>request get failed<<<<<<<")
 
     except (ValueError, requests.RequestException, requests.ConnectionError, requests.HTTPError) as request_err:
         traceback.print_exc()
