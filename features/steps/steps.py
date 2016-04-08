@@ -33,6 +33,7 @@ def step_impl(context):
     :return:
     """
     url = 'http://localhost:5100/api/v1/token'
+    # url = 'http://localhost:3000/'
     body = \
         {
             "clientId": "api_demo",
@@ -49,10 +50,12 @@ def step_impl(context):
     :return:
     """
     url = 'http://localhost:5100/api/v1/token'
+    # url = 'http://localhost:3000/'
+
     body = \
         {
+            "grantType": "refreshToken",
             "clientId": "api_demo",
-            "clientSecret": "api_demo_secret",
             "clientSecret": "api_demo_secret"
         }
     refresh_response = lra_app.refresh_token(url, body)
