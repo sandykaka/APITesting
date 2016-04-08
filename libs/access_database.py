@@ -3,57 +3,14 @@ database access
 ~~~~~~~~~~~~~~~
     this help to get the data from database
 """
-from collections import namedtuple
-from logging import Logger
+from logging_conf import Logger
 from pymongo import MongoClient
-from pymongo.uri_parser import parse_uri
 from pymongo.errors import ConnectionFailure
 from pymongo.errors import OperationFailure
 
-Container = namedtuple('Container', 'host user password')
-
-def set_database_values(host_name, env):
-    """
-    set the database values to access the database
-    :param host_name: name of the host e.g. cops, live
-    :return: return the namedtuple
-    """
-    Logger.logr.debug("setting database values")
-    if env == 'dev':
-        if host_name == 'localhost':
-            dbvalue = Container(
-                host='localhost',
-                username='',
-                password=''
-            )
-        else:
-            raise ValueError ("host_name not found in test")
-    if env == 'test':
-        if host_name == 'testdb':
-            dbvalues = Container(
-                    host='testhost',
-                    user='testuser',
-                    password='testuser'
-            )
-        else:
-            raise ValueError ("host_name not found in test")
-
-    if env == 'prod':
-        if host_name == 'proddb':
-            dbvalues = Container(
-                    host='prodhost',
-                    user='produser',
-                    password='prodpass'
-            )
-        else:
-            raise ValueError ("host_name not found in production")
-
-    Logger.logr.info("database values set as {}".format(dbvalues))
-    return dbvalues
-
 class DBConnector(object):
 
-    def __init__(self, dbhost='localhost', dbuser='roo', dbpassword='', database='', dport='27017', env='test'):
+    def __init__(self, dbhost='localhost:27017', dbuser='', dbpassword='', database=''):
         """
         Creates an instance to form and execute a MongoDB statement.
         :param dbhost: host of the database e.g.
@@ -64,41 +21,25 @@ class DBConnector(object):
         :return:
         """
         #Checking the value of dbhost and env
-        if not dbhost:
-            raise ValueError ("dbhost value is null")
+        # Checking the value of dbhost and env
         if not database:
-            self.__database = dbhost
-        elif dbhost and dbuser and dbpassword:
-            self.__dbhost = dbhost
-            self.__dbuser = dbuser
-            self.__dbpassword = dbpassword
-            self.__dbport = dport
-        else:
-            raise ValueError ("database/user/password not found")
-        #connecting with the database
-        self.__connection = None
-        self.__session = None
-        #self._open()
-
-    #Open connection with database
-    def _open(self):
-        """
-         Creates a database connection and returns
-        :return:
-        """
+            raise ValueError ("Database value not found, please provide database name")
+        self.__dbhost = dbhost
+        self.__dbuser = dbuser
+        self.__dbpassword = dbpassword
+        self.__database = database
         try:
+            if dbhost == 'localhost:27017':
+                mongo_url = dbhost
+            else:
+                mongo_url = "mongodb://{username}:{password}@{host}/{database}".format(username=dbuser, password=dbpassword, host=dbhost, database=database)
+            cnx = MongoClient(mongo_url)
+        except Exception as ex:
+           Logger.logr.info("Error", ex)
+           raise ConnectionFailure ("Not able to connect to db")
 
-            Logger.logr.debug("trying to connect with database")
-            dbURI = "mongodb://"+ self.__dbuser + ":" + self.__dbpassword + "@" + self.__dbhost + ":" + self.__dbport
-            cnx = MongoClient(dbURI)
-            uri_parts = parse_uri(dbURI)
-            dbmongo = cnx[uri_parts[self.__database]]
-            dbmongo.authenticate(uri_parts[self.__dbuser], uri_parts[self.__dbpassword])
-            self.__connection = dbmongo
-        except ConnectionFailure, e:
-            Logger.logr.debug(e.args)
-            Logger.logr.debug('ERROR: %d: %s' % (e.args[0], e.args[1]))
-        Logger.logr.info("connection established to host {} ...".format(self.__dbhost))
+        # Connect to db
+        self.__database = cnx.get_database(database)
 
     #Closing the database connection
     def _close(self):
@@ -113,18 +54,15 @@ class DBConnector(object):
     def find_all(self, collection_name):
         """
         Run the query passed as 'query' parameter
-        :param query: query e.g. 'select * from commerce.returns_label'
+        :param query: name of the collection from where data need to be fetch
         :return: return the results in dictionary
         """
-        result_set = {}
         db_name = self.__database   #Name of the table use as key
         Logger.logr.debug("host = {} \n db = {}".format(self.__dbhost, self.__database))
         #getting the table name using regx
         try:
-            db_conn = self.__connection
-            cnx = db_conn.db_name.collection_name
-            result_set = cnx.find()
-            return result_set
+            db_collection = db_name.get_collection(collection_name)
+            return db_collection.find()
         except OperationFailure, e:
             raise e
 

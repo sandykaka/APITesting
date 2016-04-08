@@ -25,19 +25,20 @@ def step_impl(context):
     """
     pass
 
+@When('I ask for access token and refresh it')
+def step_impl(context):
+    """
+     Method will ask for authorization in LR application
+    :param context:
+    :return:
+    """
+    token_response = lra_app.get_token()
+    refresh_response = lra_app.refresh_token()
 
 @When("I send an application API to RoS eForms to create/update a <application type> application")
 def step_impl(context):
     """
     This will send the application request to api
-    :type context: behave.runner.Context
-    """
-    context = lra_app.create_application()
-
-
-@Then("the application is successfully received by RoS eForms")
-def step_impl(context):
-    """
     :type context: behave.runner.Context
     """
     pass

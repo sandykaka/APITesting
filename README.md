@@ -12,6 +12,10 @@
 2. Go ot APITesting
 3. Run command => ```pip install requirments.txt```
 
+
+## How to run the feaure file:
+Inside the APITesting directory run this command ```behave features/access_application.feature```
+
 ## Project Structure:
 ```
 .

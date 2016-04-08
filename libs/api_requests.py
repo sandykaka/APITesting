@@ -1,13 +1,11 @@
 import json
 import time
 import traceback
-
 import requests
+from logging_conf import Logger
 
-from logging import Logger
 
-
-def api_get(self ,call):
+def api_get(call):
     """
     This function executes GET call for API
     """
@@ -18,22 +16,20 @@ def api_get(self ,call):
             rs = requests.get(call)
             rs = [rs ,json.loads(rs.text) ,call]
             return rs if rs[0].status_code not in [500, 404] else \
-                self.log_api_error \
-                (call)
+                Logger.logr.info("Request failed")
         except \
         (ValueError, requests.ConnectionError, requests.RequestException) as er:
             traceback.print_exc()
             Logger.logr.debug("Error found as : {}".format(er))
             Logger.logr.debug(
                 "GET: %s fail once retrying again..." % call) if retry == 1 \
-                else self.log_api_error(
-                call)
+                else Logger.logr.error("Request failed")
             time.sleep(1)
 
     return None
 
 
-def api_post(self,call,payload):
+def api_post(call, payload):
     """This function executes POST call for API
 
     Example of call: Full URL
@@ -44,7 +40,7 @@ def api_post(self,call,payload):
     "userId": 24279715}
     """
     headers = {'content-type': 'application/json'}
-
+    rs = ''
     try:
         rs = requests.post(call, data = payload, headers = headers)
         rs = [rs,json.loads(rs.text),call]
@@ -52,28 +48,27 @@ def api_post(self,call,payload):
         Logger.logr.debug(call)
 
         if rs[0].status_code in [500,404]:
-            self.log_api_error(call,payload)
+            Logger.logr.error("request get failed")
 
     except (ValueError, requests.RequestException, requests.ConnectionError, requests.HTTPError) as request_err:
         traceback.print_exc()
         Logger.logr.debug("error while calling the api endpoint as {}".format(request_err))
-        self.log_api_error(call,payload)
+        Logger.logr.error("Error while accessing the endpoint")
+
 
     return rs
 
-
-def api_put(self,call,payload):
+def api_put(call, payload):
     """
     This function executes PUT call for API
     """
-    call = self.resolve_api_url(call) + call
     headers = {'content-type': 'application/json'}
-
+    rs = ''
     try:
         #escape situation with locked transaction where 409 is returned
         counter = 0
         delay_flag = True
-
+        rs = None
         while delay_flag == True:
             counter += 1
             if counter <= 12:
@@ -91,15 +86,14 @@ def api_put(self,call,payload):
                 delay_flag = False
 
         if rs[0].status_code in [500,404]:
-            self.log_api_error(call,payload)
+            Logger.logr.error("request get failed")
 
     except (ValueError, requests.RequestException, requests.ConnectionError, requests.HTTPError) as request_err:
         Logger.logr.debug("error while calling the api endpoint as {}".format(request_err))
-        self.log_api_error(call,payload)
 
     return rs
 
-def api_delete(self, call):
+def api_delete(call):
     """
     Description: This function executes DELETE call for API
     :parameter call: endpoint to call
@@ -108,9 +102,7 @@ def api_delete(self, call):
     counter = 0
     max_tries = 2
 
-    call = self.resolve_api_url(call) + call
     rs = ''
-
     while counter < max_tries:
         try:
             rs = requests.delete(call)
@@ -120,7 +112,7 @@ def api_delete(self, call):
                 Logger.logr.info(call)
 
             if rs[0].status_code in [500, 404]:
-                self.log_api_error(call)
+                Logger.logr.error("request get failed")
             counter = max_tries
         except (ValueError, requests.RequestException, requests.ConnectionError, requests.HTTPError) as request_err:
             traceback.print_exc()
@@ -130,12 +122,13 @@ def api_delete(self, call):
                 Logger.logr.debug('DELETE: %s fail once...' % call)
                 time.sleep(1)
             else:
-                self.log_api_error(call)
+                Logger.logr.error("request get failed")
+                return rs[0].status_code
             raise Exception('Error in call!')
 
     return rs
 
-def quick_test(self,rs,expected_status_code):
+def quick_test(rs,expected_status_code):
     """
     Description:
     Parameters:
@@ -169,4 +162,15 @@ def quick_test(self,rs,expected_status_code):
             Logger.logr.info('!!!!'+str(api_rs['errors']))
     except (ValueError, KeyError, TypeError, IndexError) as ierror:
         Logger.logr.debug("quick test verification failed as => '{}'".format(ierror))
+
+def json_file_to_string(self, file_location):
+    """
+    This method will convert any file to json string, which can be used as payload to make the requests
+    :param self:
+    :param file_location:  location of the file
+    :return:  return json data
+    """
+    with open(file_location) as json_data:
+        json_data = json.load(json_data)
+        return json.dumps(json_data)
 

@@ -1,9 +1,7 @@
 """
 logging api
 ~~~~~~~~~~~~~~~
-
     this help to get the log across the project
-
 """
 import logging
 import logging.config
@@ -14,7 +12,10 @@ def singleton(cls):
         if cls not in instances:
             instances[cls] = cls()
         return instances[cls]
-    return get_instance()
+    return get_instance(
+
+
+    )
 
 @singleton
 class Logger():
