@@ -2,34 +2,19 @@ import os
 
 from libs.api_requests import api_post, quick_test, api_get
 
-def get_token():
+def get_token(url, body):
     """
     This method will call the api to get the token number
     :return:
     """
-    url = 'http://localhost:5100/api/v1/token'
-    body = \
-        {
-        "clientId": "api_demo",
-        "clientSecret": "api_demo_secret"
-        }
-    token_response = api_post(url, body)
-    assert token_response.status_code in (200, 201), "Application has not been created Expected: 200 or 201, Actual: {act}".format(act=token_response.status_code)
+    return api_post(url, body)
 
-def refresh_token():
+def refresh_token(url, body):
     """
     this will refresh the token
     :return:
     """
-    url = 'http://localhost:5100/api/v1/token'
-    body = \
-        {
-            "clientId": "api_demo",
-            "clientSecret": "api_demo_secret",
-            "clientSecret": "api_demo_secret"
-        }
-    refresh_response = api_post(url, body)
-    assert refresh_response.status_code in (200, 201), "Application has not been created Expected: 200 or 201, Actual: {act}".format(act=refresh_response.status_code)
+    return api_post(url, body)
 
 
 def create_application(payload_data='create_application_input_data.json'):

@@ -25,15 +25,38 @@ def step_impl(context):
     """
     pass
 
-@When('I ask for access token and refresh it')
+@When('I ask for access token')
 def step_impl(context):
     """
      Method will ask for authorization in LR application
     :param context:
     :return:
     """
-    lra_app.get_token()
-    # lra_app.refresh_token()
+    url = 'http://localhost:5100/api/v1/token'
+    body = \
+        {
+            "clientId": "api_demo",
+            "clientSecret": "api_demo_secret"
+        }
+    token_response = lra_app.get_token(url, body)
+    assert token_response.status_code in (200, 201), "Application has not been created Expected: 200 or 201, Actual: {act}".format(act=token_response.status_code)
+
+@Then('I refresh the token id')
+def step_impl(context):
+    """
+    this method will refresh teh token id
+    :param context:
+    :return:
+    """
+    url = 'http://localhost:5100/api/v1/token'
+    body = \
+        {
+            "clientId": "api_demo",
+            "clientSecret": "api_demo_secret",
+            "clientSecret": "api_demo_secret"
+        }
+    refresh_response = lra_app.refresh_token(url, body)
+    assert refresh_response.status_code in (200, 201), "Application has not been created Expected: 200 or 201, Actual: {act}".format(act=refresh_response.status_code)
 
 @When("I send an application API to RoS eForms to create/update a <application type> application")
 def step_impl(context):

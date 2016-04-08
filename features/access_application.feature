@@ -3,6 +3,7 @@ Feature: Get the token and refresh the user
 
   Scenario: I can successfully obtain an access token
       Given I am an External Integrator
-      When I ask for access token and refresh it
+      When I ask for access token
+      Then I refresh the token id
       When I send an application API to RoS eForms to create/update a <application type> application
 
